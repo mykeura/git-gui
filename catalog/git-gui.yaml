@@ -1,6 +1,6 @@
 name: git-gui
 title: Git Gui
-repo: https://github.com/mykeura/git-gui-for-hermes
+repo: https://github.com/mykeura/git-gui
 sha: TODO-40-hex-sha-pinned-at-submit-time
 description: >-
   Read-only GitKraken-style commit graph for Hermes Desktop. A compact graph pane
@@ -13,8 +13,8 @@ description: >-
 maintainer: mykeura
 tier: community
 category: desktop
-docs_url: https://github.com/mykeura/git-gui-for-hermes#readme
-version: "0.1.0"
+docs_url: https://github.com/mykeura/git-gui#readme
+version: "0.1.1"
 requires_hermes: ">=0.23.1"
 platforms: []
 capabilities:
@@ -23,5 +23,5 @@ capabilities:
   provides_middleware: []
   requires_env: []
 screenshots:
-  - https://github.com/mykeura/git-gui-for-hermes/raw/main/images/page.png
-  - https://github.com/mykeura/git-gui-for-hermes/raw/main/images/drawer.png
+  - https://github.com/mykeura/git-gui/raw/main/images/page.png
+  - https://github.com/mykeura/git-gui/raw/main/images/drawer.png

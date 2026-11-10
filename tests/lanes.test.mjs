@@ -180,3 +180,35 @@ test('4 concurrent branches get colors >= 2 indexes apart, none near blue', () =
     for (let j = i + 1; j < colors.length; j++)
       assert.ok(ring(colors[i], colors[j]) >= 2, `${colors[i]} vs ${colors[j]} adjacent`)
 })
+
+test('sequential branches each get a different, well-spread color', () => {
+  // Each branch is fully merged into main before the next one starts.
+  // Topo order, newest first: main ref sits on the last merge.
+  const commits = []
+  let prev = 'base'
+  for (let b = 0; b < 5; b++) {
+    commits.unshift(commit(`m${b}`, [prev, `t${b}`], b === 4 ? [branch('main', true)] : []))
+    commits.unshift(commit(`t${b}`, [prev], [branch(`b${b}`)]))
+    prev = `m${b}`
+  }
+  commits.push(commit('base', []))
+  commits.reverse()
+  const { rows } = layoutGraph(commits)
+  const tipColors = rows.filter(r => !r.isMerge && r.color !== 0).map(r => r.color)
+  assert.equal(new Set(tipColors).size, 5, `colors: ${tipColors}`)
+  const ring = (x, y) => Math.min(Math.abs(x - y), 12 - Math.abs(x - y))
+  for (let i = 1; i < tipColors.length; i++)
+    assert.ok(ring(tipColors[i], tipColors[i - 1]) >= 2, `${tipColors}`)
+})
+
+test('first three new colors follow the spread order 6, 3, 9', () => {
+  const base = sha()
+  const { rows } = layoutGraph([
+    commit(sha(), [base], [branch('main', true)]),
+    commit(sha(), [base]),
+    commit(sha(), [base]),
+    commit(sha(), [base]),
+    commit(base, []),
+  ])
+  assert.deepEqual(rows.slice(1, 4).map(r => r.color), [6, 3, 9])
+})

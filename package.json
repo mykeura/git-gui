@@ -1,6 +1,6 @@
 {
   "name": "git-gui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "description": "Read-only graphical git client for Hermes Desktop \u2014 GitKraken-style commit graph.",
@@ -9,7 +9,8 @@
     "check": "node --check desktop/plugin.js",
     "test": "PYTHON=${PYTHON:-python3} && \"$PYTHON\" -m pytest tests/ && node --test tests/*.test.mjs && node --check desktop/plugin.js",
     "dev": "node dev/build.mjs",
-    "smoke": "node dev/build.mjs && echo 'start dev/server.py 8817 first, then run chromium smoke manually' "
+    "smoke": "node dev/build.mjs && echo 'start dev/server.py 8817 first, then run chromium smoke manually' ",
+    "screenshots": "node dev/screenshot.mjs"
   },
   "author": "Miguel Euraque",
   "license": "MIT",

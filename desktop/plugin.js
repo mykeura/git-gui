@@ -1002,30 +1002,34 @@ function compute(commits, primary) {
     }
   };
   const CANDIDATES = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const ORDER = [6, 3, 9, 4, 8, 2, 10, 5, 7];
   const ringDist = (a, b) => Math.min(Math.abs(a - b), PALETTE_SIZE - Math.abs(a - b));
   const newColor = () => {
     const busy = [0];
     for (const e of active) if (e && !busy.includes(e.color)) busy.push(e.color);
-    let best = -1;
-    let bestDist = -1;
-    let bestUsed = Infinity;
-    for (const i of CANDIDATES) {
-      if (colorCount[i]) continue;
-      let d = PALETTE_SIZE;
-      for (const b of busy) {
-        const r = ringDist(i, b);
-        if (r < d) d = r;
-        if (d <= bestDist) break;
+    const pick = (minDist) => {
+      let best2 = -1;
+      for (const i of ORDER) {
+        if (!CANDIDATES.includes(i) || colorCount[i]) continue;
+        let d = PALETTE_SIZE;
+        for (const b of busy) {
+          const r = ringDist(i, b);
+          if (r < d) d = r;
+        }
+        if (d < minDist) continue;
+        if (best2 < 0 || lastUsed[i] < lastUsed[best2]) best2 = i;
       }
-      if (d > bestDist || d === bestDist && lastUsed[i] < bestUsed) {
-        best = i;
-        bestDist = d;
-        bestUsed = lastUsed[i];
-      }
-    }
-    if (best < 0) {
-      for (const i of CANDIDATES) if (best < 0 || lastUsed[i] < lastUsed[best]) best = i;
-    }
+      return best2;
+    };
+    const lru = (pool) => {
+      let best2 = -1;
+      for (const i of pool) if (best2 < 0 || lastUsed[i] < lastUsed[best2]) best2 = i;
+      return best2;
+    };
+    let best = pick(2);
+    if (best < 0) best = pick(1);
+    if (best < 0) best = lru(ORDER.filter((i) => !colorCount[i]));
+    if (best < 0) best = lru(ORDER);
     lastUsed[best] = ++clock;
     return best;
   };

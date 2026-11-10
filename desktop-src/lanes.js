@@ -105,35 +105,46 @@ function compute(commits, primary) {
     }
   }
 
-  // Non-primary candidates exclude indexes 1 and 11: both sit one 30-degree
-  // step from the primary blue and read as "the same color" beside it.
+  // Candidates keep index 0 (primary blue) and its two 30-degree neighbors out
+  // of branch hands. ORDER spreads picks around the wheel so SEQUENTIAL
+  // branches — the common case, where each starts with only lane 0 active —
+  // still get clearly different colors instead of always the same hue.
   const CANDIDATES = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const ORDER = [6, 3, 9, 4, 8, 2, 10, 5, 7]
   const ringDist = (a, b) => Math.min(Math.abs(a - b), PALETTE_SIZE - Math.abs(a - b))
 
   const newColor = () => {
     // Active hues: every occupied lane's color, primary's 0 always included.
     const busy = [0]
     for (const e of active) if (e && !busy.includes(e.color)) busy.push(e.color)
-    let best = -1
-    let bestDist = -1
-    let bestUsed = Infinity
-    for (const i of CANDIDATES) {
-      if (colorCount[i]) continue
-      let d = PALETTE_SIZE
-      for (const b of busy) {
-        const r = ringDist(i, b)
-        if (r < d) d = r
-        if (d <= bestDist) break
+
+    // Pick the candidate minimizing (lastUsed, position in ORDER): never-used
+    // wins, ties walk the spread order so consecutive branches jump hues.
+    const pick = minDist => {
+      let best = -1
+      for (const i of ORDER) {
+        if (!CANDIDATES.includes(i) || colorCount[i]) continue
+        let d = PALETTE_SIZE
+        for (const b of busy) {
+          const r = ringDist(i, b)
+          if (r < d) d = r
+        }
+        if (d < minDist) continue
+        if (best < 0 || lastUsed[i] < lastUsed[best]) best = i
       }
-      if (d > bestDist || (d === bestDist && lastUsed[i] < bestUsed)) {
-        best = i
-        bestDist = d
-        bestUsed = lastUsed[i]
-      }
+      return best
     }
-    if (best < 0) {
-      for (const i of CANDIDATES) if (best < 0 || lastUsed[i] < lastUsed[best]) best = i
+
+    const lru = pool => {
+      let best = -1
+      for (const i of pool) if (best < 0 || lastUsed[i] < lastUsed[best]) best = i
+      return best
     }
+
+    let best = pick(2)
+    if (best < 0) best = pick(1)
+    if (best < 0) best = lru(ORDER.filter(i => !colorCount[i]))
+    if (best < 0) best = lru(ORDER)
     lastUsed[best] = ++clock
     return best
   }

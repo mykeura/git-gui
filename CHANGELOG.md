@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.1
+
+- Fixed: the page and pane crashed with "Cannot read properties of null (reading 'scrollTop')" while scrolling or loading more history.
+- Fixed: the list now measures its real height (it was stuck at 600px).
+- Fixed: the column resizers no longer error on mouse release and no longer select text.
+- Docs: rewritten user README with screenshots.
+- Dev: demo-repo + screenshot scripts, smoke harness.
+- Fixed: branches created one after another no longer share the same color.
+
 ## 0.1.0
 
 - Read-only GitKraken-style commit graph for Hermes Desktop: compact right-sidebar pane and a full `/git-gui` page (BRANCH / TAG | GRAPH | COMMIT MESSAGE).

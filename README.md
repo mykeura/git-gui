@@ -1,60 +1,97 @@
 # Git Gui
 
-**A read-only GitKraken-style commit graph for Hermes Desktop.** Git Gui turns the repository your session is working in into a visual graph — every branch gets its own clearly-colored lane, merge commits show as rings, and HEAD carries a subtle highlight. Nothing here writes to your repo: no fetch, no checkout, no index changes. It only reads.
+**A read-only GitKraken-style commit graph for Hermes Desktop.**
 
-- **Compact right-sidebar pane.** The graph of `main` and its branches, always one glance away while you chat — click any commit to jump to the full view with its detail open.
-- **Full three-column page.** BRANCH / TAG | GRAPH | COMMIT MESSAGE, GitKraken-style: ref chips tinted in their lane color with a guide line to the dot, the author's name and relative time on every row, and column widths you can drag and keep.
-- **Commit drawer.** Click a commit and a panel slides in on the right with the full message, author and committer, clickable parents, and the changed files — as a path list or a tree. Click a file to read its unified diff right there; binary and truncated diffs are called out honestly.
-- **Follows your session.** It shows the repo of the session you're in and refreshes itself every 15 seconds — but only re-reads the history when a ref actually moved.
-- **Speaks your language.** Every label is translated into all nine Hermes interface languages (English, Español, Français, Deutsch, Русский, 日本語, 简体中文, 繁體中文, العربية — RTL included).
-- **Themable.** Colors come from Hermes' own palette and adapt to every skin, light or dark.
+![The Git Gui page — branches, graph and commit drawer](images/page.png)
+
+Git Gui turns the repository your chat is working in into a visual graph: every branch gets its own clearly-colored lane, merges show as rings, and HEAD carries a subtle highlight. It only ever reads your repository — nothing here writes to it.
+
+## Features
+
+- **Compact right-sidebar pane** — the graph at a glance while you chat; click a commit to jump to the full view.
+- **Full three-column page** — BRANCH / TAG | GRAPH | COMMIT MESSAGE with draggable column widths, ref chips colored by lane, and author + relative time on every row.
+- **Commit drawer** — full message, author/committer, clickable parents, changed files (Path or Tree view), and a unified diff per file.
+- **Follows your session** — shows the repo of the chat you're in; polls every 15 s and only re-reads history when a branch or tag actually moves.
+- **Nine languages, every theme** — translated into all Hermes interface languages (RTL included) and colored from the app's own palette.
 
 ## Screenshots
 
-![Compact pane next to the chat](images/pane.png)
-![Full page — three columns and the commit graph](images/page.png)
-![Commit drawer with file list and diff](images/drawer.png)
+![The compact pane next to a chat](images/pane.png)
+
+*The right-sidebar pane: the graph of main and its branches while you work.*
+
+![A file diff in the drawer](images/diff.png)
+
+*Click a file in the drawer to read its diff — binary and truncated diffs are called out.*
 
 ## Requirements
 
-- Hermes Desktop **≥ 0.23.1**.
-- `git` on the backend's PATH.
-- The plugin is opt-in like every unified package: it installs disabled and turns on with one toggle.
+- Hermes Desktop **≥ 0.23.1**
+- `git` installed on the backend's PATH
 
 ## Install
 
 ### From the catalog (recommended)
 
-In Hermes Desktop, open **Capabilities → Plugins**, find **Git Gui** and click **Install**. Installing from the catalog enables both halves in one click — the desktop UI and the small Python backend it talks to.
+Open **Capabilities → Plugins**, find **Git Gui** and click **Install**. One click enables both halves — the desktop UI and the small Python backend it talks to.
 
 ### Manual install
 
-Copy the `git-gui` folder so that `plugin.yaml` ends up at:
-
-```
-~/.hermes/plugins/git-gui/plugin.yaml
-```
-
-Then, in Hermes Desktop:
+Copy the `git-gui` folder so that `plugin.yaml` ends up at `~/.hermes/plugins/git-gui/plugin.yaml`, then:
 
 1. Run **⌘K → Reload desktop plugins** (or restart the app).
-2. Open the **Plugins** panel and enable **Git Gui**.
+2. Open **Capabilities → Plugins** and enable **Git Gui**.
 
-### The "Enable backend" button
+## Getting started
 
-If you installed the plugin by hand, you may see a notice saying the backend is off. That's just Hermes' safety boundary: the UI half and the Python half have separate switches. Clicking **Enable backend** flips Git Gui on inside Hermes' own plugin manager (it adds `git-gui` to `plugins.enabled` in your config) — one click, no terminal, and the graph loads right away.
+- Click **Git Gui** at the end of the left sidebar's top block, open the pane in the right sidebar, or run **Git Gui: Open** from ⌘K (Ctrl+K).
+- It always shows the working folder of the chat you're in — switching chats switches repos.
+
+## Using Git Gui
+
+- **Reading the graph:** one color per branch line — they stay distinct even for branches merged one after another — and the main branch is always first in blue. Plain dots are commits, rings are merges, and HEAD gets an extra ring. Chips mark branches (check = current), a cloud marks a remote branch, and a tag icon marks a tag.
+- **Columns:** drag the dividers between BRANCH / TAG, GRAPH and COMMIT MESSAGE — widths are remembered. The **Remote branches** toggle in the header shows or hides remote-only refs.
+- **The drawer:** click a commit to open it. Copy the full hash, jump to a parent commit, switch files between Path and Tree, and click a file to see its diff. Binary files and truncated diffs are labeled as such.
+- **Keyboard:** ↑/↓ moves the selection, Enter opens the drawer, Esc closes it.
+- **Refreshing:** the graph re-checks every 15 seconds but only reloads history when refs change. The **Refresh** button forces it. More history loads automatically as you scroll.
+
+## FAQ & troubleshooting
+
+**"Backend is disabled" / Enable backend button** — the UI and the Python backend have separate switches. Clicking **Enable backend** turns Git Gui on inside Hermes' own plugin manager (it adds `git-gui` to `plugins.enabled` in your config). One click, safe, no terminal.
+
+**"Not a git repository"** — the chat's working folder isn't inside a git repo.
+
+**"No working directory"** — no chat is open, or the chat has no working folder attached.
+
+**"git is not installed"** — Git Gui needs the `git` executable on the backend's PATH.
+
+**Does it change my repository?** No — it only runs read-only git commands (`log`, `for-each-ref`, `show`, `diff`).
+
+**Does it send my code anywhere?** No — everything stays local; it never touches the network.
+
+**Big repositories?** History loads in pages of 500 commits as you scroll, so even very large repos stay fast.
+
+**A red "Session controls unavailable: Session owner could not be resolved…" strip?** That message comes from Hermes itself when reopening an older chat whose owner can't be resolved on multi-profile setups. It's unrelated to Git Gui and appears even with the plugin disabled.
+
+**Disable / uninstall / update** — toggle it off in **Capabilities → Plugins**; delete `~/.hermes/plugins/git-gui/` to remove it; updates arrive through the catalog with `hermes plugins update git-gui`.
 
 ## Privacy
 
-Git Gui is read-only and fully local: it runs `git log`, `for-each-ref`, `show` and `diff` as read-only commands on your session's working directory and never touches the network, the index, or your refs.
+Fully local and read-only. No telemetry, no network calls — just git running in your session's working directory.
+
+## Languages
+
+English, Español, Français, Deutsch, Русский, 日本語, 简体中文, 繁體中文, العربية.
 
 ## Development
 
 ```bash
 npm install
-npm run build     # bundle desktop-src → desktop/plugin.js
-npm test          # pytest (PYTHON=.venv/bin/python) + node tests
-npm run dev       # bundle the dev harness into dev/dist (serve with .venv/bin/python dev/server.py)
+npm run build        # bundle desktop-src → desktop/plugin.js
+PYTHON=.venv/bin/python npm test   # pytest + node tests
+npm run dev          # build the dev harness (serve: .venv/bin/python dev/server.py)
+npm run smoke        # rebuild harness; run ?smoke=1 checks in a browser
+npm run screenshots  # regenerate images/ with headless Chromium
 ```
 
 ## A small way to support the project

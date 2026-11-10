@@ -38,8 +38,19 @@ root.render(
   <QueryClientProvider client={queryClient}>
     {view === 'pane' ? (
       <div style={{ display: 'flex', height: '100%' }}>
-        <div style={{ flex: 1, padding: '2rem', color: 'var(--ui-text-quaternary)' }}>
-          {Array.from({ length: 24 }, (_, i) => <div key={i} style={{ marginBottom: '1.25rem' }}>… chat transcript line {i + 1} …</div>)}
+        <div style={{ flex: 1, padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '0.85rem' }}>
+          <div style={{ alignSelf: 'flex-end', background: 'var(--ui-accent)', color: '#fff', borderRadius: '12px 12px 4px 12px', padding: '0.5rem 0.875rem', maxWidth: '60%' }}>
+            Can you fix the login redirect bug? Users land on a 404 after signing in.
+          </div>
+          <div style={{ alignSelf: 'flex-start', background: 'var(--ui-bg-tertiary)', borderRadius: '12px 12px 12px 4px', padding: '0.5rem 0.875rem', maxWidth: '70%' }}>
+            Looking at <code>src/auth.js</code> — the redirect target is hardcoded to /home but the route moved to /dashboard. I'll patch it and add a test.
+          </div>
+          <div style={{ alignSelf: 'flex-end', background: 'var(--ui-accent)', color: '#fff', borderRadius: '12px 12px 4px 12px', padding: '0.5rem 0.875rem', maxWidth: '60%' }}>
+            Thanks — also check the dark mode branch while you're in there.
+          </div>
+          <div style={{ alignSelf: 'flex-start', background: 'var(--ui-bg-tertiary)', borderRadius: '12px 12px 12px 4px', padding: '0.5rem 0.875rem', maxWidth: '70%' }}>
+            Done. The fix is on <code>fix/login-redirect</code> — see the graph on the right: it's merged into main already, dark mode is still open.
+          </div>
         </div>
         <div style={{ width: paneWidth, flex: 'none', borderInlineStart: '1px solid var(--ui-stroke-tertiary)', background: 'var(--ui-bg-chrome)' }}>
           <GitGuiPane />
@@ -116,7 +127,9 @@ if (sel || params.get('drawer') === '0') {
       const data = await getGraph(cwd, 0, 500)
       const sha = sel.startsWith('idx:')
         ? data.commits[Number(sel.slice(4))]?.sha
-        : data.commits.find(c => c.sha.startsWith(sel))?.sha
+        : sel.startsWith('sub:')
+          ? data.commits.find(c => c.subject.includes(sel.slice(4)))?.sha
+          : data.commits.find(c => c.sha.startsWith(sel))?.sha
       if (sha) {
         selectCommit(sha)
         const diff = params.get('diff')
