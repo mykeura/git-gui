@@ -51,6 +51,61 @@ root.render(
   </QueryClientProvider>,
 )
 
+// --- smoke mode: exercise scroll-during-load + resizers, report errors -------
+const errors = []
+window.addEventListener('error', e => errors.push(String(e.message || e.error)))
+window.addEventListener('unhandledrejection', e => errors.push(String(e.reason)))
+const origErr = console.error.bind(console)
+console.error = (...a) => { errors.push(a.map(String).join(' ')); origErr(...a) }
+
+async function smoke() {
+  const cwd = params.get('cwd')
+  const scroll = () => document.querySelector('.gg-scroll')
+  // wait for rows
+  for (let i = 0; i < 100 && !scroll(); i++) await new Promise(r => setTimeout(r, 100))
+  const el = scroll()
+  if (!el) { errors.push('no .gg-scroll found'); return }
+  // storm: scroll to bottom (triggers loadMore) while dispatching events
+  for (let round = 0; round < 30; round++) {
+    el.scrollTop = el.scrollHeight
+    el.dispatchEvent(new Event('scroll'))
+    el.scrollTop = Math.random() * el.scrollHeight
+    el.dispatchEvent(new Event('scroll'))
+    await new Promise(r => setTimeout(r, 60))
+  }
+  // pane-click path: scroll to a sha deep in history
+  const { $scrollToSha, selectCommit } = await import('../desktop-src/store.js')
+  const { getGraph } = await import('../desktop-src/api.js')
+  const deep = await getGraph(cwd, 800, 20)
+  if (deep.commits.length) {
+    selectCommit(deep.commits[deep.commits.length - 1].sha)
+    $scrollToSha.set(deep.commits[deep.commits.length - 1].sha)
+    await new Promise(r => setTimeout(r, 3000))
+  }
+  // drag the first resizer
+  const rz = document.querySelector('.gg-resizer')
+  if (rz) {
+    const rect = rz.getBoundingClientRect()
+    const x = rect.x + 2, y = rect.y + 2
+    rz.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, clientX: x, clientY: y }))
+    for (let i = 0; i < 10; i++) {
+      window.dispatchEvent(new MouseEvent('mousemove', { bubbles: true, clientX: x + i * 4, clientY: y, movementX: 4 }))
+      await new Promise(r => setTimeout(r, 30))
+    }
+    window.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, clientX: x + 40, clientY: y }))
+  }
+  await new Promise(r => setTimeout(r, 500))
+}
+
+if (params.get('smoke')) {
+  smoke().then(() => {
+    const div = document.createElement('div')
+    div.id = 'smoke-result'
+    div.textContent = errors.length ? `SMOKE-ERRORS: ${errors.join(' | ')}` : 'SMOKE-OK'
+    document.body.appendChild(div)
+  })
+}
+
 // selection / diff deep links — wait for first graph page, then apply
 const sel = params.get('select')
 if (sel || params.get('drawer') === '0') {

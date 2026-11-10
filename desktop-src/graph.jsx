@@ -82,19 +82,23 @@ export function GraphCell({ row, rowHeight = ROW_H, laneWidth = LANE_W, lanes, h
  * `onNearEnd` while the tail of the list is within `endPad` rows of view.
  */
 export function useWindowing({ count, rowHeight, overscan = 10, endPad = 200, onNearEnd }) {
-  const ref = useRef(null)
+  // Callback ref backed by state: the scroll element mounts after BackendGate
+  // clears its loading state, so a []-deps mount effect would see null and
+  // never attach the ResizeObserver. Re-run whenever the element changes.
+  const [el, setEl] = useState(null)
   const [view, setView] = useState({ top: 0, height: 600 })
   const onNearEndRef = useRef(onNearEnd)
   onNearEndRef.current = onNearEnd
 
   useEffect(() => {
-    const el = ref.current
     if (!el) return
-    const ro = new ResizeObserver(() => setView(v => ({ ...v, height: el.clientHeight })))
-    ro.observe(el)
     setView({ top: el.scrollTop, height: el.clientHeight })
+    const ro = new ResizeObserver(() => {
+      setView(v => (v.height === el.clientHeight ? v : { ...v, height: el.clientHeight }))
+    })
+    ro.observe(el)
     return () => ro.disconnect()
-  }, [])
+  }, [el])
 
   const start = Math.max(0, Math.floor(view.top / rowHeight) - overscan)
   const end = Math.min(count, Math.ceil((view.top + view.height) / rowHeight) + overscan)
@@ -104,12 +108,15 @@ export function useWindowing({ count, rowHeight, overscan = 10, endPad = 200, on
   }, [count, end, endPad])
 
   const onScroll = useCallback(e => {
-    setView(v => (v.top === e.currentTarget.scrollTop ? v : { ...v, top: e.currentTarget.scrollTop }))
+    // currentTarget is nulled after dispatch — read it synchronously, never
+    // inside the state updater (it may run later, during a queued render).
+    const top = e.currentTarget.scrollTop
+    setView(v => (v.top === top ? v : { ...v, top }))
   }, [])
 
   const scrollToRow = useCallback(i => {
-    ref.current?.scrollTo({ top: Math.max(0, i * rowHeight - 120) })
-  }, [rowHeight])
+    el?.scrollTo({ top: Math.max(0, i * rowHeight - 120) })
+  }, [el, rowHeight])
 
-  return { ref, start, end, onScroll, scrollToRow, totalHeight: count * rowHeight }
+  return { ref: setEl, start, end, onScroll, scrollToRow, totalHeight: count * rowHeight }
 }

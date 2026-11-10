@@ -905,30 +905,32 @@ function GraphCell({ row, rowHeight = ROW_H, laneWidth = LANE_W, lanes, hasRefs 
   ] });
 }
 function useWindowing({ count, rowHeight, overscan = 10, endPad = 200, onNearEnd }) {
-  const ref = useRef(null);
+  const [el, setEl] = useState2(null);
   const [view, setView] = useState2({ top: 0, height: 600 });
   const onNearEndRef = useRef(onNearEnd);
   onNearEndRef.current = onNearEnd;
   useEffect(() => {
-    const el = ref.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => setView((v) => ({ ...v, height: el.clientHeight })));
-    ro.observe(el);
     setView({ top: el.scrollTop, height: el.clientHeight });
+    const ro = new ResizeObserver(() => {
+      setView((v) => v.height === el.clientHeight ? v : { ...v, height: el.clientHeight });
+    });
+    ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [el]);
   const start = Math.max(0, Math.floor(view.top / rowHeight) - overscan);
   const end = Math.min(count, Math.ceil((view.top + view.height) / rowHeight) + overscan);
   useEffect(() => {
     if (count && end >= count - endPad) onNearEndRef.current?.();
   }, [count, end, endPad]);
   const onScroll = useCallback((e) => {
-    setView((v) => v.top === e.currentTarget.scrollTop ? v : { ...v, top: e.currentTarget.scrollTop });
+    const top = e.currentTarget.scrollTop;
+    setView((v) => v.top === top ? v : { ...v, top });
   }, []);
   const scrollToRow = useCallback((i) => {
-    ref.current?.scrollTo({ top: Math.max(0, i * rowHeight - 120) });
-  }, [rowHeight]);
-  return { ref, start, end, onScroll, scrollToRow, totalHeight: count * rowHeight };
+    el?.scrollTo({ top: Math.max(0, i * rowHeight - 120) });
+  }, [el, rowHeight]);
+  return { ref: setEl, start, end, onScroll, scrollToRow, totalHeight: count * rowHeight };
 }
 
 // desktop-src/lanes.js
@@ -1002,14 +1004,19 @@ function compute(commits, primary) {
   const CANDIDATES = [2, 3, 4, 5, 6, 7, 8, 9, 10];
   const ringDist = (a, b) => Math.min(Math.abs(a - b), PALETTE_SIZE - Math.abs(a - b));
   const newColor = () => {
-    const busy = /* @__PURE__ */ new Set([0]);
-    for (const e of active) if (e) busy.add(e.color);
+    const busy = [0];
+    for (const e of active) if (e && !busy.includes(e.color)) busy.push(e.color);
     let best = -1;
     let bestDist = -1;
     let bestUsed = Infinity;
     for (const i of CANDIDATES) {
       if (colorCount[i]) continue;
-      const d = Math.min(...[...busy].map((b) => ringDist(i, b)));
+      let d = PALETTE_SIZE;
+      for (const b of busy) {
+        const r = ringDist(i, b);
+        if (r < d) d = r;
+        if (d <= bestDist) break;
+      }
       if (d > bestDist || d === bestDist && lastUsed[i] < bestUsed) {
         best = i;
         bestDist = d;
@@ -1261,10 +1268,12 @@ function Resizer({ onDelta }) {
     {
       className: "gg-resizer",
       onMouseDown: (e) => {
-        e.currentTarget.classList.add("gg-resizer-active");
+        e.preventDefault();
+        const handle = e.currentTarget;
+        handle.classList.add("gg-resizer-active");
         const move = (ev) => onDelta(ev.movementX);
         const up = () => {
-          e.currentTarget.classList.remove("gg-resizer-active");
+          handle.classList.remove("gg-resizer-active");
           window.removeEventListener("mousemove", move);
           window.removeEventListener("mouseup", up);
         };

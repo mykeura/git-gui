@@ -40,10 +40,12 @@ function Resizer({ onDelta }) {
     <div
       className="gg-resizer"
       onMouseDown={e => {
-        e.currentTarget.classList.add('gg-resizer-active')
+        e.preventDefault()
+        const handle = e.currentTarget  // nulled after dispatch — capture now
+        handle.classList.add('gg-resizer-active')
         const move = ev => onDelta(ev.movementX)
         const up = () => {
-          e.currentTarget.classList.remove('gg-resizer-active')
+          handle.classList.remove('gg-resizer-active')
           window.removeEventListener('mousemove', move)
           window.removeEventListener('mouseup', up)
         }
