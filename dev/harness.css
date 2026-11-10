@@ -1,0 +1,122 @@
+/* Dev harness theme — replicates the app's :root seed formulas (styles.css)
+ * with the `nous` preset seeds applied like applyTheme() does. */
+
+:root {
+  --theme-foreground: #1f2328;
+  --theme-primary: #0053fd;
+  --theme-secondary: #deeaff;
+  --theme-accent-soft: color-mix(in srgb, #0053fd 10%, #ffffff);
+  --theme-midground: #0053fd;
+  --theme-warm: #0053fd;
+  --theme-background-seed: #ffffff;
+  --theme-sidebar-seed: #f6f8fa;
+  --theme-card-seed: #f6f8fa;
+  --theme-elevated-seed: #ffffff;
+  --theme-bubble-seed: #dae7fd;
+  --theme-neutral-card: #fcfcfc;
+  --theme-neutral-chrome: #f3f3f3;
+  --theme-neutral-sidebar: #f3f3f3;
+  --theme-mix-bubble: 0%;
+  --theme-mix-card: 22%;
+  --theme-mix-chrome: 92%;
+  --theme-mix-elevated: 28%;
+  --theme-mix-sidebar: 100%;
+  --theme-stroke-primary-accent-mix: 24%;
+  --theme-stroke-secondary-accent-mix: 16%;
+  --theme-stroke-tertiary-accent-mix: 10%;
+  --theme-stroke-quaternary-accent-mix: 6%;
+  --theme-fill-primary-accent-mix: 16%;
+  --theme-fill-secondary-accent-mix: 11%;
+  --theme-fill-tertiary-accent-mix: 8%;
+  --theme-fill-quaternary-accent-mix: 5%;
+  --theme-row-hover-accent-mix: 4%;
+  --theme-row-active-accent-mix: 8%;
+  --theme-control-hover-accent-mix: 6%;
+  --ui-base: var(--theme-foreground);
+  --ui-text-primary: color-mix(in srgb, var(--ui-base) 94%, transparent);
+  --ui-text-secondary: color-mix(in srgb, var(--ui-base) 74%, transparent);
+  --ui-text-tertiary: color-mix(in srgb, var(--ui-base) 54%, transparent);
+  --ui-text-quaternary: color-mix(in srgb, var(--ui-base) 36%, transparent);
+  --ui-stroke-primary: color-mix(in srgb, var(--ui-accent) var(--theme-stroke-primary-accent-mix), color-mix(in srgb, var(--ui-base) 10%, transparent));
+  --ui-stroke-secondary: color-mix(in srgb, var(--ui-accent) var(--theme-stroke-secondary-accent-mix), color-mix(in srgb, var(--ui-base) 7%, transparent));
+  --ui-stroke-tertiary: color-mix(in srgb, var(--ui-accent) var(--theme-stroke-tertiary-accent-mix), color-mix(in srgb, var(--ui-base) 5%, transparent));
+  --ui-stroke-quaternary: color-mix(in srgb, var(--ui-accent) var(--theme-stroke-quaternary-accent-mix), color-mix(in srgb, var(--ui-base) 3%, transparent));
+  --ui-accent: var(--theme-midground);
+  --ui-bg-editor: color-mix(in srgb, var(--theme-card-seed) var(--theme-mix-card), var(--theme-neutral-card));
+  --ui-bg-card: color-mix(in srgb, var(--ui-accent) 4%, color-mix(in srgb, var(--ui-base) 4%, transparent));
+  --ui-bg-elevated: color-mix(in srgb, var(--theme-elevated-seed) var(--theme-mix-elevated), var(--theme-neutral-card));
+  --ui-bg-primary: color-mix(in srgb, var(--ui-accent) var(--theme-fill-primary-accent-mix), color-mix(in srgb, var(--ui-base) 10%, transparent));
+  --ui-bg-secondary: color-mix(in srgb, var(--ui-accent) var(--theme-fill-secondary-accent-mix), color-mix(in srgb, var(--ui-base) 7%, transparent));
+  --ui-bg-tertiary: color-mix(in srgb, var(--ui-accent) var(--theme-fill-tertiary-accent-mix), color-mix(in srgb, var(--ui-base) 5%, transparent));
+  --ui-bg-quaternary: color-mix(in srgb, var(--ui-accent) var(--theme-fill-quaternary-accent-mix), color-mix(in srgb, var(--ui-base) 4%, transparent));
+  --ui-bg-sidebar: color-mix(in srgb, var(--theme-sidebar-seed) var(--theme-mix-sidebar), var(--theme-neutral-sidebar));
+  --ui-bg-chrome: color-mix(in srgb, var(--theme-background-seed) var(--theme-mix-chrome), var(--theme-neutral-chrome));
+  --ui-diff-add-background: color-mix(in srgb, var(--ui-green) 12%, transparent);
+  --ui-diff-add-foreground: color-mix(in srgb, var(--ui-green) 70%, #000);
+  --ui-diff-remove-background: color-mix(in srgb, var(--ui-red) 12%, transparent);
+  --ui-diff-remove-foreground: color-mix(in srgb, var(--ui-red) 70%, #000);
+  --ui-diff-add-border: var(--ui-green);
+  --ui-diff-remove-border: var(--ui-red);
+  --ui-green: #1f8a65;
+  --ui-yellow: #c08532;
+  --ui-red: #cf2d56;
+  --ui-blue: #0053fd;
+  --ui-purple: #9e94d5;
+  --ui-orange: #db704b;
+  --ui-cyan: #4c7f8c;
+  --ui-warm: var(--theme-warm);
+  --ui-row-hover-background: color-mix(in srgb, var(--ui-accent) var(--theme-row-hover-accent-mix), color-mix(in srgb, var(--ui-base) 3%, transparent));
+  --ui-row-active-background: color-mix(in srgb, var(--ui-accent) var(--theme-row-active-accent-mix), color-mix(in srgb, var(--ui-base) 5%, transparent));
+  --ui-row-open-background: color-mix(in srgb, var(--ui-row-active-background) 28%, transparent);
+  --ui-selection-background: color-mix(in srgb, #ffd24a 55%, transparent);
+  --ui-sash-hover-background: color-mix(in srgb, var(--ui-accent) 6%, transparent);
+  --ui-control-hover-background: color-mix(in srgb, var(--ui-accent) var(--theme-control-hover-accent-mix), color-mix(in srgb, var(--ui-base) 4%, transparent));
+  --background: var(--ui-bg-chrome);
+  --foreground: var(--ui-text-primary);
+  --dt-font-mono: "JetBrains Mono", "Cascadia Code", "DejaVu Sans Mono", ui-monospace, Menlo, Monaco, monospace;
+  --dt-font-sans: "Segoe UI", system-ui, sans-serif;
+}
+
+:root.dark {
+  --theme-foreground: #e6edf3;
+  --theme-primary: #4a84fe;
+  --theme-secondary: #1d2e4f;
+  --theme-accent-soft: #17243a;
+  --theme-midground: #4a84fe;
+  --theme-warm: #4a84fe;
+  --theme-background-seed: #0d1117;
+  --theme-sidebar-seed: #010409;
+  --theme-card-seed: #010409;
+  --theme-elevated-seed: #161b22;
+  --theme-bubble-seed: #07162c;
+  --theme-neutral-card: #161618;
+  --theme-neutral-chrome: #0d0d0e;
+  --theme-neutral-sidebar: #0a0a0b;
+  --theme-mix-bubble: 46%;
+  --theme-mix-card: 38%;
+  --theme-mix-chrome: 74%;
+  --theme-mix-elevated: 46%;
+  --ui-diff-add-foreground: color-mix(in srgb, var(--ui-green) 62%, #fff);
+  --ui-diff-remove-foreground: color-mix(in srgb, var(--ui-red) 62%, #fff);
+  --ui-green: #55a583;
+  --ui-red: #e75e78;
+  --ui-cyan: #6f9ba6;
+  --ui-selection-background: color-mix(in srgb, #ffd24a 38%, transparent);
+}
+
+* { box-sizing: border-box; }
+html, body, #app { height: 100%; margin: 0; }
+body {
+  background: var(--ui-bg-editor);
+  color: var(--ui-text-primary);
+  font-family: var(--dt-font-sans);
+  font-size: 13px;
+}
+.stub-empty { text-align: center; padding: 1rem; }
+.stub-spinner { font-size: 1.25rem; color: var(--ui-text-tertiary); animation: ggspin 1s linear infinite; display: inline-block; }
+@keyframes ggspin { to { transform: rotate(360deg); } }
+.stub-btn { border: none; border-radius: 4px; padding: 0.25rem 0.75rem; font-size: 0.75rem; cursor: pointer; background: var(--ui-bg-primary); color: var(--ui-text-primary); }
+.stub-btn-outline { background: transparent; box-shadow: inset 0 0 0 1px var(--ui-stroke-secondary); }
+.stub-btn-ghost { background: transparent; }
+.stub-btn-sm { font-size: 0.72rem; }
+

@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2026 Miguel Euraque
+
+name: git-gui
+label: Git Gui
+version: "0.1.0"
+manifest_version: 2
+api_version: 1
+description: "Read-only graphical git client — a GitKraken-style commit graph in the sidebar and a full three-column page"
+author: Miguel Euraque (@mykeura)
+license: MIT
+tags: [desktop, git, developer-tools]
+requires_hermes: ">=0.23.1"

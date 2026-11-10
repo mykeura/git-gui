@@ -1,0 +1,335 @@
+/* Git Gui plugin styles — the plugin's own design language on top of Hermes
+ * theme variables only. All classes are `gg-` prefixed and scoped under
+ * `.gg-root`; no Tailwind utilities (runtime plugins aren't in core's CSS
+ * build). Lane colors come from the SDK's PROFILE_SWATCHES (inline style),
+ * not from this file. */
+
+.gg-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--ui-text-primary);
+  font-size: 0.8125rem;
+}
+
+.gg-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-bottom: 1px solid var(--ui-stroke-tertiary);
+  flex: none;
+}
+.gg-header-title { font-weight: 600; font-size: 0.8125rem; }
+.gg-header-branch { color: var(--ui-text-secondary); font-size: 0.75rem; }
+.gg-header-count { color: var(--ui-text-tertiary); font-size: 0.75rem; }
+.gg-header-spacer { flex: 1; }
+
+.gg-colheads {
+  display: flex;
+  flex: none;
+  border-bottom: 1px solid var(--ui-stroke-tertiary);
+  color: var(--ui-text-quaternary);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  user-select: none;
+}
+.gg-colhead {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.gg-body { display: flex; flex: 1; min-height: 0; }
+.gg-scroll { flex: 1; overflow: auto; position: relative; outline: none; }
+.gg-rows { position: relative; }
+
+.gg-row {
+  position: absolute;
+  inset-inline-start: 0;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  cursor: default;
+}
+.gg-row:hover { background: var(--ui-row-hover-background); }
+.gg-row-selected,
+.gg-row-selected:hover { background: var(--ui-row-active-background); }
+.gg-row-hasrefs { background: color-mix(in srgb, var(--ui-accent) 3%, transparent); }
+.gg-row-hasrefs:hover { background: color-mix(in srgb, var(--ui-accent) 6%, transparent); }
+
+.gg-cell { display: flex; align-items: center; min-width: 0; overflow: hidden; }
+.gg-cell-refs { gap: 0.25rem; padding-inline: 0.375rem; position: relative; }
+.gg-cell-graph { flex: none; }
+.gg-cell-msg { padding-inline: 0.5rem; gap: 0.5rem; }
+
+.gg-resizer {
+  flex: none;
+  width: 5px;
+  margin-inline-start: -3px;
+  cursor: col-resize;
+  z-index: 2;
+}
+.gg-resizer:hover,
+.gg-resizer-active { background: var(--ui-sash-hover-background); }
+
+.gg-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  max-width: 100%;
+  padding: 0 0.375rem;
+  border-inline-start: 3px solid var(--gg-chip-color, transparent);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--gg-chip-color, transparent) 14%, transparent);
+  color: var(--ui-text-primary);
+  font-size: 0.6875rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  flex: none;
+}
+.gg-chip-name { overflow: hidden; text-overflow: ellipsis; }
+.gg-chip-current { font-weight: 700; }
+.gg-chip-remote { opacity: 0.85; }
+.gg-chip-more {
+  color: var(--ui-text-tertiary);
+  background: var(--ui-bg-tertiary);
+  border-inline-start-color: transparent;
+}
+/* guide line from the last chip to the graph lane */
+.gg-chip-line {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 50%;
+  width: 0.5rem;
+  height: 1px;
+  background: var(--gg-chip-color, transparent);
+  opacity: 0.5;
+}
+
+.gg-msg-subject {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+.gg-msg-meta {
+  flex: none;
+  color: var(--ui-text-tertiary);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.gg-loading-more {
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--ui-text-quaternary);
+  font-size: 0.75rem;
+}
+
+/* --- drawer ------------------------------------------------------------- */
+
+.gg-drawer {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-inline-start: 1px solid var(--ui-stroke-tertiary);
+  background: var(--ui-bg-chrome);
+}
+.gg-drawer-slot { display: flex; height: 100%; flex: none; }
+.gg-remote-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.6875rem;
+  color: var(--ui-text-tertiary);
+  cursor: pointer;
+  user-select: none;
+}
+.gg-drawer-collapsed {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.5rem;
+  border-inline-start: 1px solid var(--ui-stroke-tertiary);
+}
+.gg-drawer-head {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.5rem;
+  border-bottom: 1px solid var(--ui-stroke-tertiary);
+  flex: none;
+}
+.gg-drawer-title { font-weight: 600; font-size: 0.75rem; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gg-drawer-body { flex: 1; overflow: auto; padding: 0.625rem 0.75rem; min-height: 0; }
+
+.gg-subject { font-size: 0.875rem; font-weight: 600; overflow-wrap: anywhere; }
+.gg-bodytext {
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
+  color: var(--ui-text-secondary);
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+.gg-meta { margin-top: 0.625rem; display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.75rem; }
+.gg-meta-row { display: flex; gap: 0.375rem; }
+.gg-meta-label { color: var(--ui-text-tertiary); flex: none; width: 4.5rem; }
+.gg-meta-value { min-width: 0; overflow-wrap: anywhere; }
+.gg-parents { display: flex; gap: 0.375rem; flex-wrap: wrap; }
+.gg-parent-link {
+  color: var(--ui-accent);
+  font-family: var(--dt-font-mono, monospace);
+  font-size: 0.75rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.gg-parent-link:hover { text-decoration: underline; }
+.gg-sha { font-family: var(--dt-font-mono, monospace); }
+
+.gg-files-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.875rem;
+  margin-bottom: 0.375rem;
+}
+.gg-files-count { font-size: 0.75rem; color: var(--ui-text-secondary); flex: 1; }
+.gg-view-toggle { display: flex; gap: 0.125rem; }
+.gg-view-btn {
+  border: 1px solid var(--ui-stroke-secondary);
+  background: transparent;
+  color: var(--ui-text-tertiary);
+  font-size: 0.6875rem;
+  padding: 0.125rem 0.5rem;
+  cursor: pointer;
+}
+.gg-view-btn:first-child { border-radius: 3px 0 0 3px; border-inline-end: none; }
+.gg-view-btn:last-child { border-radius: 0 3px 3px 0; }
+html[dir='rtl'] .gg-view-btn:first-child { border-radius: 0 3px 3px 0; border-inline-end: 1px solid var(--ui-stroke-secondary); }
+html[dir='rtl'] .gg-view-btn:last-child { border-radius: 3px 0 0 3px; border-inline-end: none; }
+.gg-view-btn-on { background: var(--ui-bg-tertiary); color: var(--ui-text-primary); }
+
+.gg-file {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  min-width: 0;
+}
+.gg-file:hover { background: var(--ui-row-hover-background); }
+.gg-file-status {
+  flex: none;
+  width: 1rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.6875rem;
+}
+.gg-file-status-A { color: var(--ui-green); }
+.gg-file-status-M { color: var(--ui-yellow); }
+.gg-file-status-D { color: var(--ui-red); }
+.gg-file-status-R,
+.gg-file-status-C { color: var(--ui-blue); }
+.gg-file-status-T { color: var(--ui-text-tertiary); }
+.gg-file-path { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gg-file-dir { color: var(--ui-text-tertiary); }
+.gg-file-stats { flex: none; font-size: 0.6875rem; color: var(--ui-text-tertiary); font-variant-numeric: tabular-nums; }
+.gg-file-add { color: var(--ui-green); }
+.gg-file-del { color: var(--ui-red); }
+.gg-tree-indent { flex: none; }
+
+/* --- diff --------------------------------------------------------------- */
+
+.gg-diff {
+  font-family: var(--dt-font-mono, monospace);
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  overflow-x: auto;
+  white-space: pre;
+  margin-top: 0.5rem;
+}
+.gg-diff-line { min-width: max-content; padding-inline: 0.25rem; }
+.gg-diff-add { background: var(--ui-diff-add-background); color: var(--ui-diff-add-foreground); }
+.gg-diff-del { background: var(--ui-diff-remove-background); color: var(--ui-diff-remove-foreground); }
+.gg-diff-hunk { color: var(--ui-text-tertiary); }
+.gg-diff-meta { color: var(--ui-text-quaternary); }
+.gg-diff-notice {
+  padding: 0.375rem 0.5rem;
+  color: var(--ui-text-tertiary);
+  font-size: 0.75rem;
+  background: var(--ui-bg-tertiary);
+  border-radius: 3px;
+  margin-top: 0.5rem;
+}
+
+/* --- gate / misc --------------------------------------------------------- */
+
+.gg-gate { display: grid; place-items: center; min-height: 8rem; text-align: center; height: 100%; }
+.gg-gate-inner > * + * { margin-top: 0.75rem; }
+.gg-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  font-size: 0.8125rem;
+}
+.gg-pane-head {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-bottom: 1px solid var(--ui-stroke-tertiary);
+  flex: none;
+}
+.gg-pane-body { flex: 1; overflow: auto; min-height: 0; }
+.gg-pane-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.75rem; }
+.gg-pane-title .gg-repo-sub { display: inline; margin: 0; }
+.gg-prow {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  cursor: default;
+}
+.gg-prow:hover { background: var(--ui-row-hover-background); }
+.gg-prow-graph { flex: none; overflow: hidden; }
+.gg-prow-subject {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  padding-inline: 0.25rem;
+}
+.gg-prow .gg-chip { font-size: 0.625rem; line-height: 1rem; padding: 0 0.25rem; }
+.gg-repo { padding: 0.625rem 0.75rem; }
+.gg-repo-name { font-weight: 600; }
+.gg-repo-sub { margin-top: 0.125rem; font-size: 0.75rem; color: var(--ui-text-secondary); }
+.gg-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ui-text-secondary);
+  cursor: pointer;
+}
+.gg-icon-btn:hover { background: var(--ui-control-hover-background); color: var(--ui-text-primary); }

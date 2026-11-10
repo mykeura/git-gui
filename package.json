@@ -1,0 +1,24 @@
+{
+  "name": "git-gui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only graphical git client for Hermes Desktop \u2014 GitKraken-style commit graph.",
+  "scripts": {
+    "build": "esbuild desktop-src/index.jsx --bundle --format=esm --jsx=automatic --target=es2022 --loader:.css=text --external:react --external:react/jsx-runtime --external:@hermes/plugin-sdk --outfile=desktop/plugin.js",
+    "check": "node --check desktop/plugin.js",
+    "test": "PYTHON=${PYTHON:-python3} && \"$PYTHON\" -m pytest tests/ && node --test tests/*.test.mjs && node --check desktop/plugin.js",
+    "dev": "node dev/build.mjs"
+  },
+  "author": "Miguel Euraque",
+  "license": "MIT",
+  "devDependencies": {
+    "@nanostores/react": "2.0.1",
+    "@tanstack/react-query": "5.104.1",
+    "@vscode/codicons": "0.0.45",
+    "esbuild": "0.28.2",
+    "nanostores": "1.5.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}

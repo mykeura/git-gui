@@ -1,0 +1,7 @@
+node_modules/
+__pycache__/
+.codegraph/
+.pytest_cache/
+.venv/
+dev/dist/
+dev/screenshots/

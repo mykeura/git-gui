@@ -1,0 +1,27 @@
+name: git-gui
+title: Git Gui
+repo: https://github.com/mykeura/git-gui-for-hermes
+sha: TODO-40-hex-sha-pinned-at-submit-time
+description: >-
+  Read-only GitKraken-style commit graph for Hermes Desktop. A compact graph pane
+  lives in the right sidebar; a full three-column page (BRANCH / TAG | GRAPH |
+  COMMIT MESSAGE) shows every branch in its own color, and clicking a commit
+  opens a drawer with the message, parents, changed files and per-file diffs.
+  Backed by a small read-only Python plugin API — local git only, no network.
+  Disclosure — none: it only runs read-only git commands on the session's
+  working directory.
+maintainer: mykeura
+tier: community
+category: desktop
+docs_url: https://github.com/mykeura/git-gui-for-hermes#readme
+version: "0.1.0"
+requires_hermes: ">=0.23.1"
+platforms: []
+capabilities:
+  provides_tools: []
+  provides_hooks: []
+  provides_middleware: []
+  requires_env: []
+screenshots:
+  - https://github.com/mykeura/git-gui-for-hermes/raw/main/images/page.png
+  - https://github.com/mykeura/git-gui-for-hermes/raw/main/images/drawer.png

@@ -1,0 +1,7 @@
+{
+  "name": "git-gui",
+  "label": "Git Gui",
+  "description": "Read-only graphical git client — commit graph, refs, commit detail and file diffs",
+  "version": "0.1.0",
+  "api": "plugin_api.py"
+}
