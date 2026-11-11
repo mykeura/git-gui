@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * Git Gui data hooks. `/repo` is the cheap poll (15 s + window focus); its
  * `refsHash` fingerprints every ref, so the expensive `/graph` fetch only

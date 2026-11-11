@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
 // SPDX-License-Identifier: MIT
 // normalizeError: gate-style 404 (plain-string detail) → backend_disabled;
 // backend-coded 404s map to their own kinds; everything else → error.

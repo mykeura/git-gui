@@ -1,3 +1,5 @@
+/* SPDX-FileCopyrightText: 2026 Miguel Euraque
+   SPDX-License-Identifier: MIT */
 /* Git Gui plugin styles — the plugin's own design language on top of Hermes
  * theme variables only. All classes are `gg-` prefixed and scoped under
  * `.gg-root`; no Tailwind utilities (runtime plugins aren't in core's CSS

@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * Git Gui — read-only graphical git client for Hermes Desktop.
  * Contributes: a `/git-gui` page, a right-sidebar pane, a sidebar nav row and
@@ -35,7 +37,7 @@ function GitGuiTabTitle() {
 const plugin = {
   id: 'git-gui',
   name: 'Git Gui',
-  description: 'Read-only graphical git client — GitKraken-style commit graph in the sidebar and on a full page.',
+  description: 'Read-only graphical git client — lane-based commit graph in the sidebar and on a full page.',
   defaultEnabled: false,
   register(ctx) {
     ctx.i18n.register(LOCALES)

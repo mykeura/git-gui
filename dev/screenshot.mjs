@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 // npm run screenshots — build harness, create demo repo, serve, capture the
 // three README images with headless Chromium, stop the server.
 import { execFileSync, execFile, spawnSync } from 'node:child_process'

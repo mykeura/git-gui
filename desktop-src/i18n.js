@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * Git Gui locale bundles — registered via `ctx.i18n.register(LOCALES)` and
  * read with `usePluginI18n('git-gui')` in components / `ctx.i18n.t` in

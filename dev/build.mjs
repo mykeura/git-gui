@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 // Dev-only build: bundles dev/main.jsx with the SDK stub aliased in, real
 // react/react-query (the host provides them at runtime; devDeps stand in here)
 // and our stylesheet as text (same as the shipped build). Codicon css/font and

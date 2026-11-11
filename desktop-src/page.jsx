@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * GitGuiPage — the `/git-gui` route: header, three resizable columns
  * (BRANCH / TAG | GRAPH | COMMIT MESSAGE) over one virtualized scroll, and

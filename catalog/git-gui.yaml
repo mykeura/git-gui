@@ -3,7 +3,8 @@ title: Git Gui
 repo: https://github.com/mykeura/git-gui
 sha: TODO-40-hex-sha-pinned-at-submit-time
 description: >-
-  Read-only GitKraken-style commit graph for Hermes Desktop. A compact graph pane
+  Read-only commit graph for Hermes Desktop, inspired by modern graphical Git
+  clients. A compact graph pane
   lives in the right sidebar; a full three-column page (BRANCH / TAG | GRAPH |
   COMMIT MESSAGE) shows every branch in its own color, and clicking a commit
   opens a drawer with the message, parents, changed files and per-file diffs.

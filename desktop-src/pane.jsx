@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * GitGuiPane — the compact right-sidebar pane: header (repo · branch, refresh,
  * open full view) over a mini commit graph (24px rows, 10px lanes, r=3.5 dots,

@@ -1,8 +1,10 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * RefChips — the BRANCH/TAG column content for one commit row. Ordering:
  * current branch first (bold + check, tooltip notes it is HEAD), other local
  * branches, remotes (a remote `origin/x` sharing the row with local `x`
- * merges into that chip as a second icon, like GitKraken), then tags. A
+ * merges into that chip as a second icon), then tags. A
  * standalone HEAD chip appears only when HEAD is detached. `showRemotes`
  * hides remote-only chips; `max` caps rendered chips to `max` + "+N".
  */

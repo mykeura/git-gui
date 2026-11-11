@@ -1,6 +1,6 @@
 # Git Gui
 
-**A read-only GitKraken-style commit graph for Hermes Desktop.**
+**A read-only commit graph for Hermes Desktop, inspired by modern graphical Git clients.**
 
 ![The Git Gui page — branches, graph and commit drawer](images/page.png)
 

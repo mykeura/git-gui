@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "type": "module",
-  "description": "Read-only graphical git client for Hermes Desktop \u2014 GitKraken-style commit graph.",
+  "description": "Read-only graphical git client for Hermes Desktop \u2014 a lane-based commit graph inspired by modern graphical Git clients.",
   "scripts": {
     "build": "esbuild desktop-src/index.jsx --bundle --format=esm --jsx=automatic --target=es2022 --loader:.css=text --external:react --external:react/jsx-runtime --external:@hermes/plugin-sdk --outfile=desktop/plugin.js",
     "check": "node --check desktop/plugin.js",

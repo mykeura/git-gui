@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * Git Gui data layer — thin client over `ctx.rest`, the plugin's own
  * `/api/plugins/git-gui/*` FastAPI namespace (`dashboard/plugin_api.py`).

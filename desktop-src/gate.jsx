@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * BackendGate — the shared state machine every Git Gui surface renders
  * through. Maps (cwd, query error) to one of the plugin's honest states:

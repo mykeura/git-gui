@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * Lane layout for the commit graph — pure, no React. Turns the API's
  * topo-ordered commit list (newest first) into per-row drawing instructions.

@@ -6,7 +6,7 @@ label: Git Gui
 version: "0.1.1"
 manifest_version: 2
 api_version: 1
-description: "Read-only graphical git client — a GitKraken-style commit graph in the sidebar and a full three-column page"
+description: "Read-only graphical git client — a lane-based commit graph in the sidebar and a full three-column page"
 author: Miguel Euraque (@mykeura)
 license: MIT
 tags: [desktop, git, developer-tools]

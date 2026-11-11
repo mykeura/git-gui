@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 // Dev-only stub of @hermes/plugin-sdk — implements just the surface Git Gui
 // uses, backed by a real react-query client and a tiny atom. ctx.rest proxies
 // to the real dashboard/plugin_api.py served by dev/server.py.

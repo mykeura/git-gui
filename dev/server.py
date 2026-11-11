@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Miguel Euraque
+# SPDX-License-Identifier: MIT
 # Dev-only: serves dashboard/plugin_api.py under /api/plugins/git-gui plus
 # the bundled dev page. Run: .venv/bin/python dev/server.py [port]
 import sys

@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 // Dev harness entry — renders GitGuiPage with the real components and the
 // real plugin_api.py backend (dev/server.py mounts it at /api/plugins/git-gui).
 // Query params: ?cwd=, ?theme=light|dark, ?locale=es|ar|…, ?select=<sha|idx:N>,

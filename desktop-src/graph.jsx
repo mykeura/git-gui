@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * Graph primitives: lane → color mapping, the per-row SVG slice, and the
  * windowing hook the page's virtualized list uses. Pure SVG — plain circles

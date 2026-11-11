@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * DetailDrawer — the right-hand commit inspector on /git-gui. Sections:
  * identity (sha, subject, body), people (author + committer when different),

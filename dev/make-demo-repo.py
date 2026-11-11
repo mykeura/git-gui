@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Miguel Euraque
+# SPDX-License-Identifier: MIT
 """Build a reproducible demo repo (name: acme-web) for Git Gui screenshots.
 
 Fictional authors, conventional commits, --no-ff merges, open branches at the

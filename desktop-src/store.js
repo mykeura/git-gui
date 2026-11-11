@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
+// SPDX-License-Identifier: MIT
 /**
  * Git Gui feature store — plugin-local atoms (the same primitive Kanban
  * uses). Selection lives here (not in component state) so the compact pane

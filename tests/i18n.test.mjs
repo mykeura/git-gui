@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
 // SPDX-License-Identifier: MIT
 // Every en key must exist in every locale with the same type and no empties.
 

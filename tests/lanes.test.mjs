@@ -1,3 +1,4 @@
+// SPDX-FileCopyrightText: 2026 Miguel Euraque
 // SPDX-License-Identifier: MIT
 // Tests for the pure lane layout (desktop-src/lanes.js).
 
