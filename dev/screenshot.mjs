@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url'
 
 const dev = path.dirname(fileURLToPath(import.meta.url))
 const repo = path.join(dev, '..')
-const CHROME = process.env.CHROME || '/home/miguel/.hermes/tools/chromium-1208/chrome-linux64/chrome'
+const CHROME = process.env.CHROME || 'chromium'
 const PORT = 8819
 const enc = encodeURIComponent
 
