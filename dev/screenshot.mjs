@@ -33,7 +33,7 @@ const shot = (file, qs, win = '1440,900') => {
 try {
   shot('page.png', 'theme=dark&select=sub:merge%20checkout%20flow')
   shot('pane.png', 'theme=dark&view=pane&paneWidth=320', '980,780')
-  shot('diff.png', 'theme=light&select=sub:correct%20login%20redirect&diff=src/auth.js')
+  shot('drawer.png', 'theme=dark&select=sub:correct%20login%20redirect')
 } finally {
   server.kill()
 }
