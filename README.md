@@ -91,9 +91,6 @@ English, Español, Français, Deutsch, Русский, 日本語, 简体中文, 
 npm install
 npm run build        # bundle desktop-src → desktop/plugin.js
 PYTHON=.venv/bin/python npm test   # pytest + node tests
-npm run dev          # build the dev harness (serve: .venv/bin/python dev/server.py)
-npm run smoke        # rebuild harness; run ?smoke=1 checks in a browser
-npm run screenshots  # regenerate images/ with headless Chromium
 ```
 
 ## A small way to support the project

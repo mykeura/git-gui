@@ -7,10 +7,7 @@
   "scripts": {
     "build": "esbuild desktop-src/index.jsx --bundle --format=esm --jsx=automatic --target=es2022 --loader:.css=text --external:react --external:react/jsx-runtime --external:@hermes/plugin-sdk --outfile=desktop/plugin.js",
     "check": "node --check desktop/plugin.js",
-    "test": "PYTHON=${PYTHON:-python3} && \"$PYTHON\" -m pytest tests/ && node --test tests/*.test.mjs && node --check desktop/plugin.js",
-    "dev": "node dev/build.mjs",
-    "smoke": "node dev/build.mjs && echo 'start dev/server.py 8817 first, then run chromium smoke manually' ",
-    "screenshots": "node dev/screenshot.mjs"
+    "test": "PYTHON=${PYTHON:-python3} && \"$PYTHON\" -m pytest tests/ && node --test tests/*.test.mjs && node --check desktop/plugin.js"
   },
   "author": "Miguel Euraque",
   "license": "MIT",

@@ -5,8 +5,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .codegraph/
-dev/dist/
-dev/screenshots/
+dev/
 coverage/
 *.log
 npm-debug.log*
