@@ -23,6 +23,8 @@ capabilities:
   provides_hooks: []
   provides_middleware: []
   requires_env: []
+image: https://github.com/mykeura/git-gui/raw/main/images/banner.jpg
 screenshots:
-  - https://github.com/mykeura/git-gui/raw/main/images/page.png
-  - https://github.com/mykeura/git-gui/raw/main/images/drawer.png
+  - https://github.com/mykeura/git-gui/raw/main/images/page.jpg
+  - https://github.com/mykeura/git-gui/raw/main/images/pane.jpg
+  - https://github.com/mykeura/git-gui/raw/main/images/drawer.jpg
