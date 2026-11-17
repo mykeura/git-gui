@@ -2,7 +2,7 @@
 
 **A read-only commit graph for Hermes Desktop, inspired by modern graphical Git clients.**
 
-![The Git Gui page — branches, graph and commit messages](images/page.png)
+![The Git Gui page — branches, graph and commit messages](images/page.jpg)
 
 *The full three-column page: branch and tag refs, a lane-colored commit graph, and every commit's author and age.*
 
@@ -18,11 +18,11 @@ Git Gui turns the repository your chat is working in into a visual graph: every 
 
 ## Screenshots
 
-![The compact pane next to a chat](images/pane.png)
+![The compact pane next to a chat](images/pane.jpg)
 
 *The right-sidebar pane: the graph of main and its branches while you work.*
 
-![The commit drawer — message, author, parents and changed files](images/drawer.png)
+![The commit drawer — message, author, parents and changed files](images/drawer.jpg)
 
 *The commit drawer: full message, clickable parents and the changed-files list — click a file to read its diff.*
 
