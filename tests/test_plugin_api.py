@@ -317,3 +317,19 @@ def test_diff_dash_path_rejected(repo: Path):
     resp = client.get("/diff", params={"cwd": str(repo), "sha": head, "path": "-foo"})
     assert resp.status_code == 400
     assert detail(resp)["code"] == "bad_request"
+
+
+def test_git_env_is_allowlisted(monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "secret")
+    monkeypatch.setenv("GIT_DIR", "/bogus")
+    env = plugin_api._git_env()
+    assert "OPENAI_API_KEY" not in env
+    assert "GIT_DIR" not in env
+    assert "PATH" in env
+    assert env["GIT_TERMINAL_PROMPT"] == "0"
+
+
+def test_git_env_is_computed_per_call(monkeypatch):
+    monkeypatch.setenv("PATH", os.environ["PATH"] + os.pathsep + "/git-gui-test-path")
+    assert plugin_api._git_env()["PATH"] == os.environ["PATH"]
+    assert plugin_api._git_env()["PATH"].endswith("/git-gui-test-path")

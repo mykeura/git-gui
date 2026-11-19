@@ -15,7 +15,7 @@ maintainer: mykeura
 tier: community
 category: desktop
 docs_url: https://github.com/mykeura/git-gui#readme
-version: "0.1.1"
+version: "0.1.2"
 requires_hermes: ">=0.23.1"
 platforms: []
 capabilities:

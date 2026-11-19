@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- git subprocesses now receive a minimal allowlisted environment (no inherited API keys); diffs disable external diff/textconv helpers.
+
 ## 0.1.1
 
 - Fixed: the page and pane crashed with "Cannot read properties of null (reading 'scrollTop')" while scrolling or loading more history.

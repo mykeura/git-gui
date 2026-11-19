@@ -34,12 +34,16 @@ _SHA_RE = re.compile(r"^[0-9a-fA-F]{4,40}$")
 _DIFF_CAP_BYTES = 256 * 1024
 _GIT_TIMEOUT = 15
 
-_GIT_ENV = {
-    **{k: v for k, v in os.environ.items() if k not in ("GIT_DIR", "GIT_WORK_TREE")},
-    "GIT_OPTIONAL_LOCKS": "0",
-    "LC_ALL": "C",
-    "GIT_TERMINAL_PROMPT": "0",
-}
+_GIT_ENV_ALLOWLIST = ("PATH", "HOME", "LANG", "TMPDIR", "SYSTEMROOT")
+
+
+def _git_env() -> dict[str, str]:
+    env = {k: os.environ[k] for k in _GIT_ENV_ALLOWLIST if k in os.environ}
+    env["GIT_OPTIONAL_LOCKS"] = "0"
+    env["LC_ALL"] = "C"
+    env["GIT_TERMINAL_PROMPT"] = "0"
+    return env
+
 
 _GIT_BASE = ["git", "-c", "core.quotepath=off", "-c", "color.ui=false", "--no-pager"]
 
@@ -58,7 +62,7 @@ def _run_git(cwd: str, args: list[str]) -> subprocess.CompletedProcess:
             cwd=cwd,
             capture_output=True,
             timeout=_GIT_TIMEOUT,
-            env=_GIT_ENV,
+            env=_git_env(),
         )
     except FileNotFoundError:
         raise _err(500, "git_missing", "git is not installed or not on PATH")
@@ -79,7 +83,7 @@ def _try_git(cwd: str, args: list[str]) -> Optional[subprocess.CompletedProcess]
             cwd=cwd,
             capture_output=True,
             timeout=_GIT_TIMEOUT,
-            env=_GIT_ENV,
+            env=_git_env(),
         )
     except FileNotFoundError:
         raise _err(500, "git_missing", "git is not installed or not on PATH")
@@ -388,9 +392,9 @@ def diff(cwd: str = Query(...), sha: str = Query(...), path: str = Query(...)) -
     parents = _text(header).split()
 
     if parents:
-        args = ["diff", "-M", parents[0], sha, "--", path]
+        args = ["diff", "--no-ext-diff", "--no-textconv", "-M", parents[0], sha, "--", path]
     else:
-        args = ["diff-tree", "--root", "-r", "-p", "-M", "--no-commit-id", sha, "--", path]
+        args = ["diff-tree", "--no-ext-diff", "--no-textconv", "--root", "-r", "-p", "-M", "--no-commit-id", sha, "--", path]
     proc = _run_git(root, args)
     raw = proc.stdout
     binary = b"Binary files" in raw or b"GIT binary patch" in raw
